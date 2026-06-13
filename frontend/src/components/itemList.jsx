@@ -17,6 +17,7 @@ function ItemList({items,deleteItem,setEditItem}){
               <p>Country CODE:{item.countryCode}</p>
               <p>Country Name:{item.countryName}</p>
               <p>Operator Name:{item.operatorName}</p>
+              <p>Category: {item.category?.name}</p>
 
              
               <button onClick={()=>setEditItem(item)}>Edit</button>

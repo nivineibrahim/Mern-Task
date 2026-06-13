@@ -3,6 +3,7 @@ const cors = require("cors");
 require("dotenv").config();
 const connectDataBase = require("./configuration/database");
 const itemRoutes = require("./routes/itemRoute");
+const categoryRoutes = require("./routes/categoryRoutes");
 const mobileValidationRoutes = require("./routes/mobileValidationRoute");
 
 const app = express();
@@ -13,6 +14,7 @@ app.use(express.json());
 
 //routes
 app.use("/api", itemRoutes);
+app.use("/api", categoryRoutes);
 app.use("/api", mobileValidationRoutes);
 
 app.get("/", (req, res) => {

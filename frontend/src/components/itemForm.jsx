@@ -6,7 +6,8 @@ function ItemForm({getItems,editItem,setEditItem}){
     const [form,setForm]=useState({
         name:"",
         description:"",
-        mobileNumber:""});
+        mobileNumber:"",
+        category:""});
     const isEdit=editItem !== null;
     //lama ekbos edit yt3aba l form
     useEffect(()=>{
@@ -14,7 +15,8 @@ function ItemForm({getItems,editItem,setEditItem}){
              setForm({
                 name:editItem.name,
                 description:editItem.description,
-                mobileNumber:editItem.mobileNumber
+                mobileNumber:editItem.mobileNumber,
+                category:editItem.category?._id || editItem.category,
             });
         }
     },[editItem]);
@@ -48,7 +50,8 @@ function ItemForm({getItems,editItem,setEditItem}){
             //am e3ml reset ll form baed m b3aton llbackend
              setForm({name:"",
                 description:"",
-                mobileNumber:""});
+                mobileNumber:"",
+                category:""});
             //refresh item list    
             getItems(); 
            }catch(error){
@@ -73,6 +76,10 @@ function ItemForm({getItems,editItem,setEditItem}){
             <br/> <br/>
 
             <input name="mobileNumber" placeholder="+......" value={form.mobileNumber} onChange={handleChange}/>
+            <br/><br/>
+            <input name="category" placeholder="Category Id" value={form.category} onChange={handleChange}
+/>
+<br /><br />
             <br/> <br/>
 
             <button type="submit">{isEdit ? "Update Item" : "Add Item"}</button>

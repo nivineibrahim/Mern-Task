@@ -1,16 +1,17 @@
 const Item = require("../models/itemModel");
+const Category=require("../models/categoryModel");
 const mongoose = require("mongoose");
 const { validatePhone } = require("../services/mobileValidationService");
 
 //task1.2:add item
 const addItem = async (req, res) => {
   try {
-    const { name, description, mobileNumber } = req.body;
+    const { name, description, mobileNumber,category } = req.body;
    
 
-    if (!name || !description ) {
+    if (!name || !description || !category ) {
       return res.status(400).json({
-        error: "name and description are required",
+        error: "name , description and category are required",
       });
     }
 
@@ -35,6 +36,7 @@ const addItem = async (req, res) => {
       name,
       description,
       mobileNumber: mobileNumber || null,
+      category,
       ...mobileData,
     });
 
@@ -120,7 +122,7 @@ const deleteItem = async (req, res) => {
 // task1.5:GET ALL
 const getItems = async (req, res) => {
   try {
-    const items = await Item.find();
+    const items = await Item.find().populate("category");
     res.status(200).json(items);
   } catch (err) {
     res.status(500).json({ error: err.message });
