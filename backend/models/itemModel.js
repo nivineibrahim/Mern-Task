@@ -25,9 +25,9 @@ const itemSchema = new Schema(
       type: String,
     },
     category: {
-  type: mongoose.Schema.Types.ObjectId,
-  ref: "Category",
-  required: true,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Category",
+    required: true,
 },
   },
   { timestamps: true }

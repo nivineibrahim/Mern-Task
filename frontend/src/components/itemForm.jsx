@@ -1,7 +1,7 @@
 import { useState,useEffect } from "react";
 import axios from "axios";
 const API="http://localhost:5000/api/items";
-function ItemForm({getItems,editItem,setEditItem}){
+function ItemForm({getItems,editItem,setEditItem,categories}){
     const [error,setError]=useState("");
     const [form,setForm]=useState({
         name:"",
@@ -16,7 +16,7 @@ function ItemForm({getItems,editItem,setEditItem}){
                 name:editItem.name,
                 description:editItem.description,
                 mobileNumber:editItem.mobileNumber,
-                category:editItem.category?._id || editItem.category,
+                category: editItem.category?._id || "",
             });
         }
     },[editItem]);
@@ -77,8 +77,15 @@ function ItemForm({getItems,editItem,setEditItem}){
 
             <input name="mobileNumber" placeholder="+......" value={form.mobileNumber} onChange={handleChange}/>
             <br/><br/>
-            <input name="category" placeholder="Category Id" value={form.category} onChange={handleChange}
-/>
+            <select name="category" value={form.category} onChange={handleChange}>
+            <option value="">Select Category</option>
+         {categories.map((cat) => (
+         <option key={cat._id} value={cat._id}>
+         {cat.name}
+         </option>
+          ))}
+        </select>
+
 <br /><br />
             <br/> <br/>
 

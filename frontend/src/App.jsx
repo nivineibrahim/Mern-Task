@@ -5,6 +5,7 @@ import axios from "axios";
 const API="http://localhost:5000/api/items";
 function App() {
   const [items,setItems]=useState([]);
+  const [categories, setCategories] = useState([]);
   const [editItem,setEditItem]=useState(null);
   //Get all items
    const getItems=async () => {
@@ -27,8 +28,22 @@ function App() {
   };
   useEffect(() => {
     getItems();
+    getCategories();
   }, []);
+  //get all categories
+  const getCategories = async () => {
+  try {
+    const res = await axios.get("http://localhost:5000/api/categories");
 
+    console.log("RAW:", res.data);
+
+    const data = res.data.categories || res.data.data || res.data;
+
+    setCategories(Array.isArray(data) ? data : []);
+  } catch (error) {
+    console.log(error);
+  }
+};
   return (
     <>
     <div>
@@ -36,7 +51,8 @@ function App() {
       <ItemForm 
       getItems={getItems} 
       editItem={editItem} 
-      setEditItem={setEditItem}/>
+      setEditItem={setEditItem}
+      categories={categories}/>
       <hr/>
       <ItemList items={items} 
       deleteItem={deleteItem} 
