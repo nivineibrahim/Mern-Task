@@ -4,95 +4,212 @@
 
 # Project Documentation
 
-## Project Name:
-MERN Item Management System with Mobile Validation Microservice
+## Project Name
 
-## Description:
-This project is a full-stack application built using the MERN stack (MongoDB, Express, React, Node.js).
+MERN Item Management System with Mobile Validation Service
 
-It allows users to manage items with full CRUD operations:
-- Add Item
-- Get All Items
-- Update Item
-- Delete Item
+---
+
+## Description
+
+This project is a full-stack application built using the MERN Stack (MongoDB, Express.js, React.js, and Node.js).
+
+The application allows users to manage items using full CRUD operations.
 
 Each item contains:
 - Name
 - Description
-- Mobile Number 
+- Mobile Number (optional)
+- Category
 
-The mobile number is validated using an external microservice before saving or updating the item.
+If a mobile number is provided, it is validated before the item is saved or updated. The application also retrieves the country code, country name, and operator name for valid numbers.
+
+Items belong to a category using a MongoDB reference.
+
+---
+
+# Technologies Used
+
+- React.js
+- Node.js
+- Express.js
+- MongoDB Atlas
+- Mongoose
+- Axios
 
 ---
 
 # API Documentation
 
-## 1. Add Item
-POST /api/items
+## 1. Mobile Validation
 
-Body:
+POST /api/validate-mobile
+
+### Request
+
+```json
 {
-  "name": "string",
-  "description": "string",
-  "mobileNumber": "string "
+  "mobileNumber": "+96170123456"
 }
+```
+
+### Response
+
+```json
+{
+  "countryCode": "LB",
+  "countryName": "Lebanon",
+  "operatorName": "Alfa"
+}
+```
+
+If the number is invalid, the API returns an error.
 
 ---
 
-## 2. Get All Items
+## 2. Add Item
+
+POST /api/items
+
+### Body
+
+```json
+{
+  "name": "Phone",
+  "description": "iPhone 15",
+  "mobileNumber": "+96170123456",
+  "category": "categoryId"
+}
+```
+
+---
+
+## 3. Get All Items
+
 GET /api/items
 
 ---
 
-## 3. Update Item
-PUT /api/items/:id
+## 4. Update Item
 
-Body:
+PATCH /api/items/:id
+
+### Body
+
+```json
 {
-  "name": "string",
-  "description": "string",
-  "mobileNumber": "string"
+  "name": "Phone",
+  "description": "Updated Description",
+  "mobileNumber": "+96170123456",
+  "category": "categoryId"
 }
+```
 
 ---
 
-## 4. Delete Item
+## 5. Delete Item
+
 DELETE /api/items/:id
 
 ---
 
-# How to Run Project
+## 6. Add Category
+
+POST /api/categories
+
+### Body
+
+```json
+{
+  "name": "Electronics"
+}
+```
+
+---
+
+## 7. Get All Categories
+
+GET /api/categories
+
+---
+
+## 8. Delete All Categories
+
+DELETE /api/categories
+
+---
+## 9. Delete a specific Category
+
+Delete /api/categories/:id
+
+---
+
+# Category Relationship
+
+Each item belongs to one category.
+
+The Item model stores the category ID as a reference to the Category collection.
+
+The backend uses populate() to return the category name when retrieving items.
+
+---
+
+# How to Run the Project
 
 ## Backend
+
+```bash
 cd backend
 npm install
 npm run dev
+```
 
-Server runs on:
+Backend runs on:
+
+```
 http://localhost:5000
+```
 
 ---
 
 ## Frontend
+
+```bash
 cd frontend
 npm install
 npm run dev
+```
 
 Frontend runs on:
+
+```
 http://localhost:5173
+```
 
 ---
 
 ## Database
-using MongoDB Atlas.
+
+MongoDB Atlas is used as the database.
 
 ---
 
-# Notes
+# Efficient Parts
 
-## Efficient Parts:
-- Separation of frontend and backend
-- REST API architecture
-- useEffect for data fetching
-- Axios for API communication
-- Clean CRUD structure
+- Separation between frontend and backend.
+- Clean REST API architecture.
+- Reusable service for mobile number validation.
+- Axios for API communication.
+- React Hooks (useState and useEffect).
+- MongoDB populate() for category relationships.
+- Modular project structure (Controllers, Models, Routes, Services).
+
+---
+
+# Possible Improvements
+
+- Add authentication and authorization.
+- Improve the frontend UI.
+- Add pagination and search.
+- Add more automated unit and integration tests.
+- Dockerize the application for easier deployment.

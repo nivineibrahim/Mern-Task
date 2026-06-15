@@ -4,102 +4,182 @@
 
 ## Add Item (Valid Data)
 
-### Steps:
-- Open application
-- Enter name, description, and mobile number
-- Click Add Item
+### Steps
 
-### Expected Result:
-- Item is saved in database
-- Item appears in the list immediately
+- Open the application.
+- Enter name, description, mobile number and category.
+- Click Add Item.
+
+### Expected Result
+
+- Item is saved successfully.
+- Item appears in the list.
+- Mobile information is stored correctly.
 
 ---
 
-## Add Item (With at least 1 field is empty name or description)
+## Add Item (Required Fields Missing)
 
-### Steps:
--click add item
+### Steps
 
-### Expected Result:
+- Leave name or description empty.
+- Click Add Item.
 
-- fields are required
+### Expected Result
+
+- Validation error is displayed.
+- Item is not saved.
 
 ---
 
 ## Add Item (Invalid Mobile Number)
 
-### Steps:
-- Enter invalid mobile number
-- Submit form
+### Steps
 
-### Expected Result:
-- Backend calls mobile validation microservice
-- API returns invalid mobile number
-- Item is not saved or warning is shown
+- Enter an invalid mobile number.
+- Click Add Item.
 
-## Add Item (Invalid Mobile Number)
+### Expected Result
 
-### Steps:
-- Enter empty mobile number
-- Submit form
-
-### Expected Result:
-- item saved with mobilenumber null,countrycode,countryname and operatorname are empty
-
+- Mobile validation fails.
+- Error message is displayed.
+- Item is not saved.
 
 ---
 
-##  Update Item
+## Add Item (Empty Mobile Number)
 
-### Steps:
-- Click Edit on an item
-- Modify data in form
-- Click Update
+### Steps
 
-### Expected Result:
-- check if mobile is valid :
-- Item is updated in database
-- UI refreshes automatically with new data
-- if not valid mobile number is not valid
-- if one field name or description are empty return name and description are required
+- Leave the mobile number empty.
+- Fill the required fields.
+- Click Add Item.
+
+### Expected Result
+
+- Item is saved successfully.
+- Mobile number is null or empty.
+- Country code, country name and operator name remain empty.
+
+---
+
+## Update Item
+
+### Steps
+
+- Click Edit.
+- Modify item information.
+- Click Update.
+
+### Expected Result
+
+- Item is updated successfully.
+- If the mobile number is valid, mobile information is updated.
+- If the mobile number is invalid, an error message is returned.
+- Required fields cannot be empty.
 
 ---
 
 ## Delete Item
 
-### Steps:
-- Click Delete button on an item
+### Steps
 
-### Expected Result:
-- Item is removed from database
-- Item disappears from UI immediately
+- Click Delete.
+
+### Expected Result
+
+- Item is removed from the database.
+- Item disappears from the UI.
 
 ---
 
 ## Get All Items
 
-### Steps:
-- Open application
+### Steps
 
-### Expected Result:
-- All items from database are displayed on screen
+- Open the application.
+
+### Expected Result
+
+- All items are displayed successfully.
 
 ---
 
+## Mobile Validation Service
 
+### Steps
 
+- Send a mobile number to the validation API.
 
+### Expected Result
 
-### Mobile Validation Microservice
+- Valid numbers return:
+  - Country Code
+  - Country Name
+  - Operator Name
+- Invalid numbers return an error.
 
-### Steps:
-- Send mobile number to validation API
+---
 
-### Expected Result:
-- API returns:
-  - countryCode
-  - countryName
-  - operatorName
+## Add Category
 
-- If number is invalid:
-  - Error response is returned
+### Steps
+
+- Enter a category name.
+- Click Add Category.
+
+### Expected Result
+
+- Category is saved successfully.
+- Category appears in the categories list.
+- Category becomes available in the item dropdown.
+
+---
+
+## Get All Categories
+
+### Steps
+
+- Open the application.
+
+### Expected Result
+
+- All categories are loaded successfully.
+
+---
+
+## Delete a specific category
+### Steps
+
+- Give category id.
+
+### Expected Result
+
+- If id exists deleted successfully.
+- Else category not found.
+
+## Delete all categories
+### Steps
+
+- Delete
+
+### Expected Result
+
+- All categories are deleted successfully.
+
+## Add Item with Category
+
+### Steps
+
+- Select a category.
+- Enter item information.
+- Click Add Item.
+
+### Expected Result
+
+- Item is saved successfully.
+- The selected category is linked to the item.
+- The category name is displayed in the item list.
+
+---
+
